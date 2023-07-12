@@ -3,11 +3,11 @@ module "ec2_foreach" {
 
   count = length(local.instances)
 
-  name = local.instances[count.index]
+  name = "${local.instances[count.index]}-count"
   ami  = data.aws_ami.ubuntu.id
 
   instance_type = "t2.micro"
-  key_name      = "${local.instances[count.index]}-user"
+  key_name      = "${local.instances[count.index]}-count-user"
   monitoring    = true
 
   tags = {
