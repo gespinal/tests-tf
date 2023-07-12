@@ -1,13 +1,13 @@
-module "ec2_instance" {
+module "ec2_count" {
   source = "terraform-aws-modules/ec2-instance/aws"
 
-  count = length(local.instances)
+  for_each = toset(local.instances)
 
-  name = local.instances[count.index]
+  name = each.key
   ami  = data.aws_ami.ubuntu.id
 
   instance_type = "t2.micro"
-  key_name      = "${local.instances[count.index]}-user"
+  key_name      = "${each.key}-user"
   monitoring    = true
 
   tags = {
